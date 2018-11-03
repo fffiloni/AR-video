@@ -107,7 +107,7 @@ function initialize()
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 		type: 'pattern', patternUrl: "https://rawgit.com/stemkoski/AR-Examples/master/data/hiro.patt",
 	})
-	let geometry1 = new THREE.PlaneBufferGeometry(2,2, 4,4);
+	let geometry1 = new THREE.PlaneBufferGeometry(3,4.4);
 	let video = document.getElementById( 'video' );
 	let texture = new THREE.VideoTexture( video );
 	texture.minFilter = THREE.LinearFilter;
