@@ -34,7 +34,7 @@
 -->
 
 <script>
-var scene, camera, renderer, clock, deltaTime, totalTime;
+var scene, camera, renderer, clock, deltaTime, totalTime, camera2;
 var arToolkitSource, arToolkitContext, smoothedControls;
 var markerRoot1;
 var mesh1;
@@ -136,6 +136,9 @@ function initialize()
   mesh1.position.x = -2.33;
   mesh1.position.z = -1;
 	smoothedRoot.add( mesh1 );
+	
+	camera2 = new THREE.PerspectiveCamera();
+	scene.add(camera2);
 }
 function update()
 {
@@ -147,7 +150,7 @@ function update()
 }
 function render()
 {
-	renderer.render( scene, camera );
+	renderer.render( scene, camera, camera2 );
 }
 function animate()
 {
