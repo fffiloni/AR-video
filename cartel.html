@@ -34,7 +34,7 @@
 
 <script>
 var scene, camera, renderer, clock, deltaTime, totalTime;
-var arToolkitSource, arToolkitContext;
+var arToolkitSource, arToolkitContext, smoothedControls;
 var markerRoot1;
 var mesh1;
 initialize();
@@ -103,13 +103,25 @@ function initialize()
 		type: 'pattern', patternUrl: "https://rawgit.com/stemkoski/AR-Examples/master/data/hiro.patt",
 	})
 	
+	// interpolates from last position to create smoother transitions when moving.
+	// parameter lerp values near 0 are slow, near 1 are fast (instantaneous).
+	let smoothedRoot = new THREE.Group();
+	scene.add(smoothedRoot);
+	smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+		lerpPosition: 0.8,
+		lerpQuaternion: 0.8,
+		lerpScale: 1,
+		// minVisibleDelay: 1,
+		// minUnvisibleDelay: 1,
+	});
+	
 	let geometry2 = new THREE.PlaneBufferGeometry(1,1, 4,4);
 	let loader = new THREE.TextureLoader();
 	// let texture = loader.load( 'images/earth.jpg', render );
 	let material2 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
 	let mesh0 = new THREE.Mesh( geometry2, material2 );
 	mesh0.rotation.x = -Math.PI/2;
-	markerRoot1.add( mesh0 );
+	smoothedRoot.add( mesh0 );
 	
 	let geometry1 = new THREE.PlaneBufferGeometry(3,4.4);
 	let video = document.getElementById( 'video' );
@@ -122,13 +134,15 @@ function initialize()
 	mesh1.rotation.x = -Math.PI/2;
   mesh1.position.x = -2.33;
   mesh1.position.z = -1;
-	markerRoot1.add( mesh1 );
+	smoothedRoot.add( mesh1 );
 }
 function update()
 {
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
+	// additional code for smoothed controls
+	smoothedControls.update(markerRoot1);
 }
 function render()
 {
