@@ -159,7 +159,7 @@
     
     video.play();
     
-    setInterval(function(){
+    
       var toggleSound = document.body.addEventListener('touchstart', function(){
         if(video.muted === true){
           video.muted=false;
@@ -167,7 +167,7 @@
           video.muted=true;
         }
       });
-    }, 400);
+   
    
   }
   playVideo();
