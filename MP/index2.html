@@ -155,13 +155,10 @@
   }
   function playVideo(){
   	let video = document.getElementById('video');
-  	
-    if(video.muted === true){
-      
-    }
+ 
     
     video.play();
-    var button = document.body.addEventListener('touchstart', function(){video.muted=false;});
+   var button = document.body.addEventListener('touchstart', function(){video.muted=false;});
   }
   playVideo();
   	console.log("ready 1");
