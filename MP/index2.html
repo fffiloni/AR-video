@@ -158,7 +158,17 @@
  
     
     video.play();
-   var button = document.body.addEventListener('touchstart', function(){video.muted=false;});
+    
+    setInterval(function(){
+      var toggleSound = document.body.addEventListener('touchstart', function(){
+        if(video.muted === true){
+          video.muted=false;
+        } else if(video.muted === false){
+          video.muted=true;
+        }
+      });
+    }, 400);
+   
   }
   playVideo();
   	console.log("ready 1");
